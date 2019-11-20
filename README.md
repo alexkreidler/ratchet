@@ -1,8 +1,8 @@
 # Ratchet
 
-<img align="right" src="http://assets1.dailyburn.com/random/the-ratchet.png" style="margin-left:20px">
-
-### A library for performing data pipeline / ETL tasks in Go.
+[![GoDoc](https://godoc.org/github.com/alexkreidler/ratchet?status.svg)](https://godoc.org/github.com/alexkreidler/ratchet)
+ 
+### A Golang ETL/pipeline library
 
 The Go programming language's simplicity, execution speed, and concurrency support make it a great choice for building data pipeline systems that can perform custom ETL (Extract, Transform, Load) tasks. Ratchet is a library that is written 100% in Go, and let's you easily build custom data pipelines by writing your own Go code.
 
@@ -16,25 +16,9 @@ Each data processor is receiving, processing, and then sending data to the next 
 
 ## Getting Started
 
-- Check out the full Godoc reference:
- [![GoDoc](https://godoc.org/github.com/dailyburn/ratchet?status.svg)](https://godoc.org/github.com/dailyburn/ratchet)
 - Get Ratchet:
-      go get github.com/dailyburn/ratchet
-
-  Ratchet comes with vendored dependencies so it can work out of the box if you use go1.6 (or go1.5 with the GO15VENDOREXPERIMENT environment variable
-  set to 1).
-  
-  However, if you prefer to vendor your own dependencies then you should move the dependencies out of ratchet's vendor/ folder and into your
-  own. Read the vendor/vendor.json file to get a list of its dependencies and their versions. Ratchet works with the vendor-spec, so it will also work 
-  with the [govendor](https://github.com/kardianos/govendor) dependency manager. After you have copied the dependencies into your project's vendor.json,
-  you can download them into your project's vendor folder--along with ratchet--by running:
-
-        govendor sync
-        govendor add github.com/dailyburn/ratchet
-        govendor add github.com/dailyburn/ratchet/data
-        govendor add github.com/dailyburn/ratchet/logger
-        govendor add github.com/dailyburn/ratchet/processors
-        govendor add github.com/dailyburn/ratchet/util
+    - `go get github.com/alexkreidler/ratchet`
+    - or just include it in your `import`s, and Go Modules will do the rest  
 
 While not necessary, it may be helpful to understand
 some of the pipeline concepts used within Ratchet's internals: https://blog.golang.org/pipelines
@@ -46,3 +30,11 @@ Ratchet could be used anytime you need to perform some type of custom ETL. At Da
 Another good use-case is when you have data stored in disparate locations that can't be easily tied together. For example, if you have some CSV data stored on S3, some related data in a SQL database, and want to combine them into a final CSV or SQL output.
 
 In general, Ratchet tends to solve the type of data-related tasks that you end up writing a bunch of custom and difficult to maintain scripts to accomplish.
+
+# Future work
+
+In the future, we may change the underlying data model that is passed between processors. JSON has a lot of overhead, especially for a solely in memory data representation. 
+
+We may use Apache Arrow instead, as it has great support for ETL-like functionality
+
+Additionally, we may extend the library to work in a distributed manner by using great libraries like [raft](https://github.com/hashicorp/raft), and other libs for building clusters. We would then need a scheduling algorithm, but data passing between tasks would happen with Apache Arrow's IPC framework.

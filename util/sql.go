@@ -6,8 +6,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/dailyburn/ratchet/data"
-	"github.com/dailyburn/ratchet/logger"
+	"github.com/alexkreidler/ratchet/data"
+	"github.com/alexkreidler/ratchet/logger"
 	"github.com/kisielk/sqlstruct"
 )
 
